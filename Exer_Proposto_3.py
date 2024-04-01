@@ -1,6 +1,6 @@
 import numpy as np
 
-arr = np.loadtxt('space.csv', delimiter=';', dtype='str', encoding='utf-8', skiprows=1)
+arr = np.loadtxt(R'C:\Users\annac\OneDrive\Área de Trabalho\INATEL\7 periodo\C111\C111\space.csv', delimiter=';', dtype='str', encoding='utf-8', skiprows=1)
 
 #1
 failureCount = np.char.find(arr[:,-1], 'Success').sum() * (-1)
