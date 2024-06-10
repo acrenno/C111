@@ -1,25 +1,24 @@
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
+df = pd.read_csv('space.csv', delimiter=';')
 
-dfSpace = pd.read_csv(r"C:\Users\annac\Downloads\space.csv", delimiter=';')
+# Dados para EUA e China
+usa = df[df['Location'].str.contains('USA', case=False)]['Company Name'].unique()
+china = df[df['Location'].str.contains('China', case=False)]['Company Name'].unique()
 
+# Contar o número de empresas
+usa_count = len(usa)
+china_count = len(china)
 
-dfEua = dfSpace[dfSpace['Location'].str.contains('EUA', case=False, na=False)]
-dfChina = dfSpace[dfSpace['Location'].str.contains('China', case=False, na=False)]
+# Dados para a  cosntrução do gráfico
+countries = ['USA', 'China']
+counts = [usa_count, china_count]
 
-empresa_count = {
-    'EUA': len(dfEua),
-    'China': len(dfChina)
-}
-
-# Criando o gráfico de barras
+#Montando o grafico
 plt.figure(figsize=(10, 6))
-plt.bar(empresa_count.keys(), empresa_count.values(), color=['blue', 'red'])
+plt.bar(countries, counts, color=['red', 'blue'])
 plt.xlabel('País')
-plt.ylabel('Número de Empresas')
-plt.xticks(rotation=0)  # Mantém os rótulos dos países horizontais
+plt.ylabel('Número de Empresas Espaciais')
+plt.title('Empresas Espaciais nos EUA e China')
 plt.show()
-
-

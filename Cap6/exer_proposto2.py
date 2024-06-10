@@ -1,32 +1,30 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+df = pd.read_csv('paises.csv', delimiter=';')
+df['Region'] = df['Region'].str.strip()
 
-dfPaises = pd.read_csv(r"C:\Users\annac\Downloads\paises.csv", delimiter=';')
+# Paises da America do norte
+northern_america_data = df[df['Region'] == 'NORTHERN AMERICA']
 
-dfNorte = dfPaises[dfPaises['Region'].str.contains('North America', case=False, na=False)]
+# colunas para birthrate e deathrate
+countries = northern_america_data['Country']
+birthrates = northern_america_data['Birthrate']
+deathrates = northern_america_data['Deathrate']
 
-dfpaises = dfNorte['Country']
-dfmortalidade = dfNorte['Deathrate']
-dfnascimento = dfNorte['Birthrate']
+plt.figure(figsize=(10, 6))
 
+# Birthrate
+plt.plot(countries, birthrates, label='Birthrate', marker='o')
 
-fig, ax1 = plt.subplots(figsize=(12, 8))
+# Deathrate
+plt.plot(countries, deathrates, label='Deathrate', marker='o')
 
-ax1.set_xlabel('País')
-ax1.set_ylabel('Taxa de Mortalidade', color='tab:red')
-ax1.bar(dfpaises, dfmortalidade, color='tab:red', alpha=0.6, label='Taxa de Mortalidade')
-ax1.tick_params(axis='y', labelcolor='tab:red')
-
-
-ax2 = ax1.twinx()
-ax2.set_ylabel('Taxa de Natalidade', color='tab:blue')
-ax2.plot(dfpaises, dfnascimento, color='tab:blue', marker='o', linestyle='-', linewidth=2, markersize=5, label='Taxa de Natalidade')
-ax2.tick_params(axis='y', labelcolor='tab:blue')
-
-
-fig.tight_layout()
-ax1.legend(loc='upper left')
-ax2.legend(loc='upper right')
-
+# gráfico
+plt.title('Birthrate e Deathratena America do Norte')
+plt.xlabel('Country')
+plt.ylabel('Rate')
+plt.legend()
+plt.xticks(rotation=45)
+plt.tight_layout()
 plt.show()
